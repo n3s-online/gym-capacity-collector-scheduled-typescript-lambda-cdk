@@ -10,7 +10,7 @@ config();
 const app = new cdk.App();
 
 const lambdaEvent: LambdaEvent = {
-  message: "Scheduled message"
+  gymCapacityStatusEndpoint: process.env.GYM_CAPACITY_ENDPOINT!
 };
 // Cron Rule is in UTC
 const cronRule: CronOptions = {

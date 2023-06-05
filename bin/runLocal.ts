@@ -5,9 +5,11 @@ import * as userCode from "../src/lambdaHandler";
 import { Context } from 'aws-lambda';
 
 const localEvent: userCode.LambdaEvent = {
-    message: "Hello World"
+    gymCapacityStatusEndpoint: process.env.GYM_CAPACITY_ENDPOINT!
 };
 
 const response = userCode.handler(localEvent, {} as Context, () => { });
 
-console.log(response);
+response && response.then((res) => {
+    console.log(res);
+});
