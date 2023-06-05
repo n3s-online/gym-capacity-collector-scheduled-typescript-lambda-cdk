@@ -10,14 +10,17 @@ config();
 const app = new cdk.App();
 
 const lambdaEvent: LambdaEvent = {
-  gymCapacityStatusEndpoint: process.env.GYM_CAPACITY_ENDPOINT!
+  gymCapacityStatusEndpoint: process.env.GYM_CAPACITY_ENDPOINT!,
+  googleSheetId: process.env.GOOGLE_SHEET_ID!,
+  googleClientEmail: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL!,
+  googlePrivateKey: process.env.GOOGLE_PRIVATE_KEY!,
 };
 // Cron Rule is in UTC
 const cronRule: CronOptions = {
-  hour: '22',
-  minute: '45'
+  minute: '*/15',
+  hour: '0-5,12-23',
 };
 
-new TypescriptLambdaStack(app, 'TypescriptLambdaStack', {
+new TypescriptLambdaStack(app, 'GymCapacityTypescriptLambdaStack', {
   events: [{ event: lambdaEvent, schedule: cronRule }]
 });
